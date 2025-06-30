@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Room, Topic, Message
-from .form import RoomForm
+from .form import RoomForm, UserForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -79,6 +79,17 @@ def user_profile(request, pk):
     topics = Topic.objects.all()
     context = {'user': user, 'rooms': rooms, 'room_messages': room_messages, 'topics': topics}
     return render(request, 'profile.html', context)
+
+@login_required(login_url='login-register')
+def update_user(request):
+    form = UserForm(instance=request.user)
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=request.user.id)
+    context = {'form': form}
+    return render(request, 'update-user.html', context)
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
