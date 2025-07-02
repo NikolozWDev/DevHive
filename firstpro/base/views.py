@@ -66,7 +66,7 @@ def home(request):
         Q(name__icontains=q) |
         Q(description__icontains=q)
         )
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:4]
     room_count = rooms.count()
     room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'q':q, 'room_messages': room_messages}
@@ -76,7 +76,7 @@ def user_profile(request, pk):
     user = User.objects.get(id=pk)
     rooms = user.room_set.all()
     room_messages = user.message_set.all()
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:4]
     context = {'user': user, 'rooms': rooms, 'room_messages': room_messages, 'topics': topics}
     return render(request, 'profile.html', context)
 
@@ -109,7 +109,7 @@ def room(request, pk):
 @login_required(login_url='login-register')
 def room_form(request):
     form = RoomForm()
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:4]
     if request.method == 'POST':
         topic_name = request.POST.get('topic')
         topic, created = Topic.objects.get_or_create(name=topic_name)
@@ -125,7 +125,7 @@ def room_form(request):
 
 @login_required(login_url='login-register')
 def update_room(request, pk):
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:4]
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
     if request.user != room.host:
@@ -138,10 +138,6 @@ def update_room(request, pk):
         room.description = request.POST.get('description')
         room.save()
         return redirect('home')
-        # form = RoomForm(request.POST, instance=room)
-        # if form.is_valid():
-        #     form.save()
-        #     return redirect('home')
     context = {'form': form, 'topics': topics, 'room': room}
     return render(request, 'room_form.html', context)
 
@@ -165,3 +161,14 @@ def delete_message(request, pk):
         return redirect('home')
     context = {'message': message}
     return render(request, 'delete-message.html', context)
+
+def topics_page(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    context = {'topics': topics}
+    return render(request, 'topics.html', context)
+
+def activity_page(request):
+    room_messages = Message.objects.all()
+    context = {'room_messages': room_messages}
+    return render(request, 'activity.html', context)
