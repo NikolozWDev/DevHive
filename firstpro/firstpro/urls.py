@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from base.views import home, room, room_form, main, update_room, delete_room, user_login, user_logout, delete_account, delete_message, register_page, user_profile, update_user, topics_page, activity_page
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('nikoloz-admin/', admin.site.urls),
     path('', home, name='home'),
     path('login-register/', user_login, name='login-register'),
     path('logout/', user_logout, name='logout'),
@@ -39,3 +41,4 @@ urlpatterns = [
     # working different paths
     path('api/', include('base.api.urls'))
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

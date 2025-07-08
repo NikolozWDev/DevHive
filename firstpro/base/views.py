@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Room, Topic, Message
-from .form import RoomForm, UserForm
+from .models import Room, Topic, Message, User
+from .form import RoomForm, UserForm, MyUserCreationForm
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
 
 def main(request):
@@ -20,9 +19,9 @@ def user_login(request):
     if request.user.is_authenticated:
         return redirect('home')
     if request.method == 'POST':
-        username = request.POST.get('username').lower()
+        email = request.POST.get('email').lower()
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
             return redirect('home')
@@ -36,15 +35,15 @@ def user_logout(request):
     return redirect('home')
 
 def register_page(request):
-    form = UserCreationForm()
+    form = MyUserCreationForm()
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = MyUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
             login(request, user)
-            return redirect('home')
+            return redirect('update-user')
         else:
             messages.error(request, 'An error occured during registration')
     context = {'form': form, 'page': 'register'}
@@ -84,7 +83,7 @@ def user_profile(request, pk):
 def update_user(request):
     form = UserForm(instance=request.user)
     if request.method == 'POST':
-        form = UserForm(request.POST, instance=request.user)
+        form = UserForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('user-profile', pk=request.user.id)
@@ -96,13 +95,16 @@ def room(request, pk):
     room_messages = room.message_set.all()
     participants = room.participants.all()
     if request.method == 'POST':
-        message = Message.objects.create(
-            user = request.user,
-            room = room,
-            body = request.POST.get('body')
-        )
-        room.participants.add(request.user)
-        return redirect('room', pk=room.id)
+        if request.user.is_authenticated:
+            message = Message.objects.create(
+                user = request.user,
+                room = room,
+                body = request.POST.get('body')
+            )
+            room.participants.add(request.user)
+            return redirect('room', pk=room.id)
+        else:
+            return redirect('login-register')
     context = {'room': room, 'room_messages': room_messages, 'participants': participants}
     return render(request, 'room.html', context)
 
