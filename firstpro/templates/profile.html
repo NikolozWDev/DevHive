@@ -29,13 +29,16 @@
             </p>
           </div>
         </div>
-
         <div class="roomList__header">
           <div>
             <h2>Study Rooms Hosted by @{{ user.username }}</a>
             </h2>
           </div>
         </div>
+            <div class="mobile-menuItems menu-items2" style="padding: 0px 0px 20px 0px;">
+              <a class="btn btn--main btn--pill" href="{% url 'topics' %}">Browse Topics</a>
+              <a class="btn btn--main btn--pill" href="{% url 'activity' %}">Recent Activities</a>
+            </div>
         {% include 'feed-component.html' %}
       </div>
       <!-- Room List End -->

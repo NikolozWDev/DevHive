@@ -255,7 +255,7 @@ a {
   gap: 1rem;
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 901px) {
   .mobile-menu {
     display: none;
   }
@@ -329,7 +329,7 @@ a {
 
 @media screen and (max-width: 700px) {
   .header__logo h1 {
-    display: none;
+    display: block;
   }
 }
 
@@ -422,17 +422,33 @@ a {
 /*========== Layout Box ==========*/
 
 .layout__box {
-  width: 90%;
-  max-width: 48rem;
-  min-height: 40rem;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -46%);
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 48rem;
+  max-height: 90vh;
+  overflow-y: auto;
   background-color: var(--color-dark);
   border-radius: 1rem;
   box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+}
+@media(max-width: 500px) {
+  .layout__box {
+    height: 360px;
+  }
+}
+@media(max-height: 500px) {
+  .layout__box {
+      top: 55%;
+      height: 320px;
+  }
+}
+@media(max-height: 410px) {
+  .layout__box {
+    height: 250px
+  }
 }
 
 .layout__boxHeader {
@@ -911,6 +927,9 @@ a {
   .participants {
     display: none;
   }
+  .search2 {
+    display: none;
+  }
 
   .layout--2 > .container > div:first-child {
     flex-basis: 100%;
@@ -1162,4 +1181,21 @@ a {
   font-weight: 500;
   color: var(--color-main);
   font-weight: 1.4rem;
+}
+
+.mobile-menuItems {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+h1 {
+  display: block
+}
+
+@media (min-width: 901px) {
+  .menu-items2 {
+    display: none
+  }
 }
