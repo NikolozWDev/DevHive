@@ -37,10 +37,9 @@
           {% else %}
             <!-- Not Logged In -->
           <a href="{% url 'login-register' %}">
-            <!-- {% if request.user.id_authenticated %}
             <img src="{% static 'images/avatar.svg' %}" />
-            {% endif %} -->
-            <p style="  padding: 8px 16px;
+            <p>Login</p>
+            <!-- <p style="  padding: 8px 16px;
             background-color: #3b82f6;
             color: white;
             border-radius: 8px;
@@ -49,7 +48,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             display: inline-block;">Login</p>
-          </a>
+          </a> -->
           {% endif %}
 
           <div class="dropdown-menu">

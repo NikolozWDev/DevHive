@@ -20,6 +20,8 @@ from base.views import home, room, room_form, main, update_room, delete_room, us
 from django.conf import settings
 from django.conf.urls.static import static
 
+handler404 = 'base.views.custom_404_view'
+
 urlpatterns = [
     path('nikoloz-admin/', admin.site.urls),
     path('', home, name='home'),
