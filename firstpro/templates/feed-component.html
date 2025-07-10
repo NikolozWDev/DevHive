@@ -7,6 +7,9 @@
                   <img src="{{ room.host.avatar.url }}" />
                 </div>
                 <span>@{{room.host.username}}</span>
+                {% if room.host.username == 'Nikoloz' %}
+                <span style="color: rgb(199, 79, 79); font-weight: bold; letter-spacing: 0.5px; font-size: 12px;">OWNER</span>
+                {% endif %}
               </a>
               <div class="roomListRoom__actions">
                 <span>{{room.created|timesince}} ago</span>

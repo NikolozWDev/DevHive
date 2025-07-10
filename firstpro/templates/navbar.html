@@ -83,15 +83,15 @@
           </div>
         </nav>
       </div>
+          {% if messages %}
+    <div style="display: flex; justify-content: center; font-size: 16px; font-weight: bold; color: rgb(167, 35, 35);">
+    {% for message in messages %}
+    <ul>
+        <li class="message">
+            {{ message }}
+        </li>
+    </ul>
+    {% endfor %}
+    </div>
+    {% endif %}
     </header>
-
-
-
-
-<!-- {% if request.user.is_authenticated %}
-<p>hello {{request.user}}</p>
-<a href="{% url 'logout' %}">Logout</a> |||
-<a href="{% url 'deleteacc' %}">Delete account</a>
-{% else %}
-<a href="{% url 'login-register' %}">Login</a>
-{% endif %} -->

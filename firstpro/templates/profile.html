@@ -18,6 +18,9 @@
           <div class="profile__info">
             <h3>{{ user.name }}</h3>
             <p>@{{ user.username }}</p>
+            {% if user.username == 'Nikoloz' %}
+            <span style="color: rgb(199, 79, 79); font-weight: bold; letter-spacing: 0.5px; font-size: 12px;">OWNER</span>
+            {% endif %}
             {% if request.user == user %}
             <a href="{% url 'update-user' %}" class="btn btn--main btn--pill">Edit Profile</a>
             {% endif %}

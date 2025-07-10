@@ -35,19 +35,8 @@ def user_logout(request):
     return redirect('home')
 
 def register_page(request):
-    form = MyUserCreationForm()
-    if request.method == 'POST':
-        form = MyUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            login(request, user)
-            return redirect('update-user')
-        else:
-            messages.error(request, 'An error occured during registration')
-    context = {'form': form, 'page': 'register'}
-    return render(request, 'login-register.html', context)
+    messages.error(request, "sorry, registration is now closed.")
+    return redirect('login-register')
 
 def delete_account(request):
     if request.method == 'POST':
@@ -67,14 +56,14 @@ def home(request):
         )
     topics = Topic.objects.all()[0:4]
     room_count = rooms.count()
-    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))[:3]
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'q':q, 'room_messages': room_messages}
     return render(request, 'home.html', context)
 
 def user_profile(request, pk):
     user = User.objects.get(id=pk)
     rooms = user.room_set.all()
-    room_messages = user.message_set.all()
+    room_messages = user.message_set.all()[:3]
     topics = Topic.objects.all()[0:4]
     context = {'user': user, 'rooms': rooms, 'room_messages': room_messages, 'topics': topics}
     return render(request, 'profile.html', context)
