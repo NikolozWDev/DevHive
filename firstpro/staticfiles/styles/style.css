@@ -1,17 +1,52 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
-:root {
-  --color-main: #71c6dd;
-  --color-main-light: #e1f6fb;
-  --color-dark: #3f4156;
-  --color-dark-medium: #51546e;
-  --color-dark-light: #696d97;
-  --color-light: #e5e5e5;
-  --color-gray: #8b8b8b;
-  --color-light-gray: #b2bdbd;
-  --color-bg: #2d2d39;
-  --color-success: #5dd693;
-  --color-error: #fc4b0b;
+:root.light-mode  {
+  --color-main: #3b82f6; /* bright blue */
+  --color-main-light: #e0f0ff; /* soft light blue */
+  --color-dark: #f0f0f0ff; /* white background */
+  --color-dark-medium: #e0e0e0ff; /* slightly off-white */
+  --color-dark-light: #adadadff; /* light gray */
+  --color-light: #121212; /* black text */
+  --color-gray: #4e4e4eff; /* medium gray */
+  --color-light-gray: #5a5a5aff; /* light gray */
+  --color-bg: #e6e6e6ff; /* background base */
+  --color-success: #10b981; /* emerald */
+  --color-error: #ef4444; /* red */
+}
+:root.dark-mode {
+  --color-main: #6c5ce7;
+  --color-main-light: #ece8ff;
+  --color-dark: #1e1e2f;
+  --color-dark-medium: #2e2e48;
+  --color-dark-light: #4b4b72;
+  --color-light: #f0f0f5;
+  --color-gray: #a5a5a5;
+  --color-light-gray: #d6d6e0;
+  --color-bg: #15151f;
+  --color-success: #00b894;
+  --color-error: #d63031;
+}
+
+/* light / dark (mode) */
+.light {
+  transition: all 0.2s;
+}
+.dark {
+  transition: all 0.2s;
+}
+.light:hover {
+  cursor: pointer;
+  box-shadow: 0 0 20px 10px rgba(0, 238, 255, 0.6);
+  background-color: rgba(0, 238, 255, 0.6)
+}
+.dark:hover {
+  cursor: pointer;
+  box-shadow: 0 0 20px 10px rgba(109, 19, 255, 0.6);
+  background-color: rgba(109, 19, 255, 0.6)
+}
+
+h2 h3 {
+  color: var(--color-gray)
 }
 
 /*========== base styles ==========*/
@@ -275,7 +310,12 @@ a {
   gap: 9.5rem;
 }
 
-.header__logo,
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .header__user {
   display: flex;
   gap: 2rem;
@@ -643,7 +683,7 @@ a {
   margin-bottom: 2.4rem;
 }
 
-.roomList__header h2 {
+.roomList__header {
   text-transform: uppercase;
   font-weight: 500;
   color: var(--color-light);
@@ -753,7 +793,7 @@ a {
   overflow: hidden;
 }
 
-.activities__header h2 {
+.activities__header {
   background-color: var(--color-dark-light);
   text-transform: uppercase;
   font-weight: 500;
@@ -907,7 +947,7 @@ a {
   margin-bottom: 1.5rem;
 }
 
-.profile-page .roomList__header h2 {
+.profile-page .roomList__header {
   color: var(--color-dark-light);
 }
 
