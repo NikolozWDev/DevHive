@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from base.views import home, room, room_form, main, update_room, delete_room, user_login, user_logout, delete_account, delete_message, register_page, user_profile, update_user, topics_page, activity_page
+from base.views import home, room, room_form, main, update_room, delete_room, user_login, user_logout, delete_account, delete_message, register_page, user_profile, update_user, topics_page, activity_page, all_activities, follow_toggle, add_participant
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -38,6 +38,9 @@ urlpatterns = [
     path('update-user/', update_user, name='update-user'),
     path('topics/', topics_page, name='topics'),
     path('activity/', activity_page, name='activity'),
+    path('all-activities/<int:pk>/', all_activities, name='allactivities'),
+    path('follow-toggle/<int:pk>/', follow_toggle, name='follow-toggle'),
+    path('add-participant/<int:pk>/', add_participant, name='add-participant'),
 
 
     # working different paths

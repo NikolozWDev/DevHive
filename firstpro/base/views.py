@@ -63,7 +63,7 @@ def home(request):
 def user_profile(request, pk):
     user = User.objects.get(id=pk)
     rooms = user.room_set.all()
-    room_messages = user.message_set.all()[:3]
+    room_messages = user.message_set.all()[:2]
     topics = Topic.objects.all()[0:4]
     context = {'user': user, 'rooms': rooms, 'room_messages': room_messages, 'topics': topics}
     return render(request, 'profile.html', context)
@@ -168,3 +168,32 @@ def custom_404_view(request, exception):
     return render(request, '404.html', {
         'user': request.user
     }, status=404)
+
+def all_activities(request, pk):
+    user = User.objects.get(id=pk)
+    user_messages = Message.objects.filter(user=user).order_by('-created')
+    context = {'user': user, 'user_messages': user_messages}
+    return render(request, 'all-activities.html', context)
+
+@login_required(login_url='login-register')
+def follow_toggle(request, pk):
+    target_user = User.objects.get(id=pk)
+    if request.user == target_user:
+        messages.error("you can't follow yourself")
+        return redirect('user-profile', pk=pk)
+    if target_user in request.user.following.all():
+        request.user.following.remove(target_user)
+    else:
+        request.user.following.add(target_user)
+    context = {}
+    return redirect('user-profile', pk=pk)
+
+@login_required(login_url='login-register')
+def add_participant(request, pk):
+    room = Room.objects.get(id=pk)
+    if request.user in room.participants.all():
+        room.participants.remove(request.user)
+    else:
+        room.participants.add(request.user)
+    context = {}
+    return redirect('room', pk=pk)

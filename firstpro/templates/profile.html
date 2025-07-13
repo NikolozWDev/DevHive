@@ -17,7 +17,22 @@
           </div>
           <div class="profile__info">
             <h3>{{ user.name }}</h3>
+            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 10px;">
             <p>@{{ user.username }}</p>
+            <span style="font-family: Arial, Helvetica, sans-serif; transform: translateY(-5px);">{{ user.followers.count }} followers</span>
+            </div>
+
+            {% if request.user != user %}
+
+            {% if user in request.user.following.all %}
+            <a href="{% url 'follow-toggle' user.id %}" class="btn btn--main btn--pill">UnFollow</a>
+            {% else %}
+            <a href="{% url 'follow-toggle' user.id %}" class="btn btn--main btn--pill">Follow</a>
+            {% endif %}
+
+            {% endif %}
+
+
             {% if user.username == 'Nikoloz' %}
             <span style="color: rgb(199, 79, 79); font-weight: bold; letter-spacing: 0.5px; font-size: 12px;">OWNER</span>
             {% endif %}
@@ -41,13 +56,20 @@
             <div class="mobile-menuItems menu-items2" style="padding: 0px 0px 20px 0px;">
               <a class="btn btn--main btn--pill" href="{% url 'topics' %}">Browse Topics</a>
               <a class="btn btn--main btn--pill" href="{% url 'activity' %}">Recent Activities</a>
+              <a class="btn btn--main btn--pill" href="{% url 'allactivities' user.id %}">See All Activities</a>
+
             </div>
         {% include 'feed-component.html' %}
       </div>
       <!-- Room List End -->
 
       <!-- Activities Start -->
+       <div class="allact">
       {% include 'activity-component.html' %}
+      <div style="display: flex; justify-content: center; align-items: center; background-color: var(--color-dark); width: 100%; padding: 0px 0px 10px 0px;">
+      <a href="{% url 'allactivities' user.id %}">See All Activities</a>
+      </div>
+      </div>
       <!-- Activities End -->
     </div>
   </main>
