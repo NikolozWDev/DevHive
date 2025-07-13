@@ -60,8 +60,8 @@ def home(request):
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'q':q, 'room_messages': room_messages}
     return render(request, 'home.html', context)
 
-def user_profile(request, pk):
-    user = User.objects.get(id=pk)
+def user_profile(request, username):
+    user = User.objects.get(username=username)
     rooms = user.room_set.all()
     room_messages = user.message_set.all()[:2]
     topics = Topic.objects.all()[0:4]
@@ -79,8 +79,8 @@ def update_user(request):
     context = {'form': form}
     return render(request, 'update-user.html', context)
 
-def room(request, pk):
-    room = Room.objects.get(id=pk)
+def room(request, slug):
+    room = Room.objects.get(slug=slug)
     room_messages = room.message_set.all()
     participants = room.participants.all()
     if request.method == 'POST':
@@ -91,7 +91,7 @@ def room(request, pk):
                 body = request.POST.get('body')
             )
             room.participants.add(request.user)
-            return redirect('room', pk=room.id)
+            return redirect('room', slug=room.slug)
         else:
             return redirect('login-register')
     context = {'room': room, 'room_messages': room_messages, 'participants': participants}
@@ -197,3 +197,15 @@ def add_participant(request, pk):
         room.participants.add(request.user)
     context = {}
     return redirect('room', pk=pk)
+
+def search(request, q):
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=q) |
+        Q(name__icontains=q) |
+        Q(description__icontains=q)
+    )
+    topics = Topic.objects.all()[0:4]
+    room_count = rooms.count()
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))[:3]
+    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'q': q, 'room_messages': room_messages}
+    return render(request, 'home.html', context)

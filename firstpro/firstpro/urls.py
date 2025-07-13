@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from base.views import home, room, room_form, main, update_room, delete_room, user_login, user_logout, delete_account, delete_message, register_page, user_profile, update_user, topics_page, activity_page, all_activities, follow_toggle, add_participant
+from base.views import home, room, room_form, main, update_room, delete_room, user_login, user_logout, delete_account, delete_message, register_page, user_profile, update_user, topics_page, activity_page, all_activities, follow_toggle, add_participant, search
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,16 +25,17 @@ handler404 = 'base.views.custom_404_view'
 urlpatterns = [
     path('nikoloz-admin/', admin.site.urls),
     path('', home, name='home'),
+    path('search/<str:q>/', search, name='search'),
     path('login-register/', user_login, name='login-register'),
     path('logout/', user_logout, name='logout'),
     path('delete-account/', delete_account, name='deleteacc'),
     path('register/', register_page, name='register'),
-    path('room/<int:pk>/', room, name='room'),
+    path('room/<slug:slug>/', room, name='room'),
     path('create-room/', room_form, name='create-room' ),
     path('update-room/<int:pk>/', update_room, name='update-room'),
     path('delete-room/<int:pk>/', delete_room, name='delete-room'),
     path('delete-message/<int:pk>/', delete_message, name='delete-message'),
-    path('user-profile/<int:pk>/', user_profile, name='user-profile'),
+    path('profile/@<str:username>/', user_profile, name='user-profile'),
     path('update-user/', update_user, name='update-user'),
     path('topics/', topics_page, name='topics'),
     path('activity/', activity_page, name='activity'),
