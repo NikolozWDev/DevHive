@@ -1,14 +1,24 @@
+# Python cache
 __pycache__/
 *.py[cod]
 *.log
 
-# ვირტუალური გარემო
+# Virtual environments
+env/
 venv/
-.env
 .venv/
 ENV/
-env/
+.env
 
-# ოპერაციული სისტემის ფაილები
+# OS files
 .DS_Store
 Thumbs.db
+
+# Static & collected files
+staticfiles/
+
+# VSCode settings (optional)
+.vscode/
+
+# SQLite backup files
+*.sqlite3-journal
