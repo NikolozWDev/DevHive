@@ -11,9 +11,9 @@ This project was built as part of my journey to become a good full-stack web dev
 ## Gallery
 
 <p align="center">
-  <img src="readme_images/photo1.png" width="280" />
-  <img src="readme_images/photo2.png" width="280" />
-  <img src="readme_images/photo3.png" width="280" />
+  <img src="readme_images/Screenshot 2025-11-21 205734.png" width="280" />
+  <img src="readme_images/Screenshot 2025-11-21 210424.png" width="280" />
+  <img src="readme_images/Screenshot 2025-11-21 210450.png" width="280" />
 </p>
 
 ---
