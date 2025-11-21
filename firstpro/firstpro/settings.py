@@ -43,7 +43,18 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'rest_framework',
     'corsheaders',
+
+    'cloudinary',
+    'cloudinary_storage',
 ]
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'nikolozwdev',
+    'API_KEY': '123456789012345',
+    'API_SECRET': 'abcdEfGhIjKlmNoPQRsT',
+}
 
 AUTH_USER_MODEL = 'base.User'
 
