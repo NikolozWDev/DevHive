@@ -8,6 +8,14 @@ Live Website 👉 [thedevhive.onrender.com](https://thedevhive.onrender.com)
 **DevHive** is a full-stack Django-based web application where users can sign up, create discussion rooms, interact with others, and share knowledge on different topics.  
 This project was built as part of my journey to become a good full-stack web developer and showcases my ability to build dynamic, responsive, and database-driven websites.
 
+## Gallery
+
+<p align="center">
+  <img src="readme_images/photo1.png" width="280" />
+  <img src="readme_images/photo2.png" width="280" />
+  <img src="readme_images/photo3.png" width="280" />
+</p>
+
 ---
 
 ## Features ✨
