@@ -1,7 +1,7 @@
 # TheDevHive 🐝 by Nikoloz Gigiashvili
 
 Live Website 👉 [thedevhive.onrender.com](https://thedevhive.onrender.com)
-⚡ Note: This site is hosted on Render’s free tier, so the first load may feel slow. Registration/Login is disabled for public users as this project is for practicing full-stack development only.
+⚡ Note: This site is hosted on Render’s free tier, so the first load may feel slow. Registration/Login is disabled for public users as this project.
 
 ## Overview
 
