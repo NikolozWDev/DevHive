@@ -1,12 +1,11 @@
 # TheDevHive 🐝 by Nikoloz Gigiashvili
 
 Live Website 👉 [thedevhive.onrender.com](https://thedevhive.onrender.com)
-⚡ Note: This site is hosted on Render’s free tier, so the first load may feel slow. Registration/Login is disabled for public users as this project.
+Note: This site is hosted on Render’s free tier, so the first load may feel slow. Registration/Login is disabled for public users as this project.
 
 ## Overview
 
 **DevHive** is a full-stack Django-based web application where users can sign up, create discussion rooms, interact with others, and share knowledge on different topics.  
-This project was built as part of my journey to become a good full-stack web developer and showcases my ability to build dynamic, responsive, and database-driven websites.
 
 ## Gallery
 
